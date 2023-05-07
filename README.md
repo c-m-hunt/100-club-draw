@@ -26,6 +26,9 @@ number,name
 
 ## Example
 ```
-hundclub entries.csv
+hundclub entries entries.csv
 ```
 
+```
+huindclub draw entries.csv
+```

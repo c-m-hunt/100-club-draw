@@ -47,12 +47,21 @@ func New(entriesFilePath string, prizeCount int) *HundredClub {
 }
 
 func (h *HundredClub) DisplayEntries() {
+	fmt.Println()
+	fmt.Println("Entries:")
+	fmt.Println(strings.Repeat("-", 80))
 	for _, entry := range h.Entries {
 		fmt.Println(entry.Number, entry.Name)
 	}
+
+	fmt.Println()
+	fmt.Println("Total entries:", len(h.Entries))
 }
 
 func (h *HundredClub) DisplayEntriesSummary() {
+	fmt.Println()
+	fmt.Println("Entry summary:")
+	fmt.Println(strings.Repeat("-", 80))
 	entriesSummary := make(map[string]int)
 	for _, entry := range h.Entries {
 		entriesSummary[entry.Name]++
