@@ -21,7 +21,7 @@ var showEntriesCmd = &cobra.Command{
 		if len(args) == 1 {
 			defaultEntriesFile = args[0]
 		}
-		hc := hundredClub.New(defaultEntriesFile)
+		hc := hundredClub.New(defaultEntriesFile, 3)
 		hc.DisplayEntries()
 		hc.DisplayEntriesSummary()
 	},
@@ -35,7 +35,7 @@ var drawCmd = &cobra.Command{
 		if len(args) == 1 {
 			defaultEntriesFile = args[0]
 		}
-		hc := hundredClub.New(defaultEntriesFile)
+		hc := hundredClub.New(defaultEntriesFile, 3)
 		hc.DrawAndDisplay()
 	},
 }

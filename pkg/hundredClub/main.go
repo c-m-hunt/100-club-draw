@@ -7,6 +7,7 @@ import (
 	"sort"
 	"time"
 
+	"github.com/dustin/go-humanize"
 	"github.com/gocarina/gocsv"
 )
 
@@ -30,12 +31,17 @@ type PrizeResult struct {
 	Entry     *Entry
 }
 
-func New(entriesFilePath string) *HundredClub {
+func New(entriesFilePath string, prizeCount int) *HundredClub {
 	entries := generateEntriesFromCSV(entriesFilePath)
+	prizeNames := []string{}
+	for i := 1; i <= prizeCount; i++ {
+		prizeNames = append(prizeNames, humanize.Ordinal(i))
+	}
+
 	return &HundredClub{
 		Entries:      entries,
-		PrizesToDraw: 3,
-		PrizeNames:   []string{"1st", "2nd", "3rd"},
+		PrizesToDraw: prizeCount,
+		PrizeNames:   prizeNames,
 	}
 }
 
@@ -64,9 +70,12 @@ func (h *HundredClub) DisplayEntriesSummary() {
 func (h *HundredClub) Draw() DrawResult {
 	rand.Seed(time.Now().UnixNano())
 	drawResults := []PrizeResult{}
+	entries := make([]*Entry, len(h.Entries))
+	copy(entries, h.Entries)
 	for i := 0; i < h.PrizesToDraw; i++ {
-		prizeIndex := rand.Intn(len(h.Entries))
-		drawResults = append(drawResults, PrizeResult{PrizeName: h.PrizeNames[i], Entry: h.Entries[prizeIndex]})
+		prizeIndex := rand.Intn(len(entries))
+		drawResults = append(drawResults, PrizeResult{PrizeName: h.PrizeNames[i], Entry: entries[prizeIndex]})
+		entries = append(entries[:prizeIndex], entries[prizeIndex+1:]...)
 	}
 	return DrawResult{Result: drawResults}
 }
