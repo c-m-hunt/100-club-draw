@@ -5,6 +5,7 @@ import (
 	"math/rand"
 	"os"
 	"sort"
+	"strings"
 	"time"
 
 	"github.com/dustin/go-humanize"
@@ -99,5 +100,13 @@ func generateEntriesFromCSV(entriesFilePath string) []*Entry {
 	if err := gocsv.UnmarshalFile(in, &entries); err != nil {
 		panic(err)
 	}
-	return entries
+
+	filteredEntries := []*Entry{}
+	for _, entry := range entries {
+		if strings.TrimSpace(entry.Name) != "" {
+			filteredEntries = append(filteredEntries, entry)
+		}
+	}
+
+	return filteredEntries
 }
