@@ -30,5 +30,5 @@ hundclub entries entries.csv
 ```
 
 ```
-huindclub draw entries.csv
+hundclub draw entries.csv
 ```

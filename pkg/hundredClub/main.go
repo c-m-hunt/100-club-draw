@@ -10,6 +10,7 @@ import (
 
 	"github.com/dustin/go-humanize"
 	"github.com/gocarina/gocsv"
+	"golang.org/x/exp/slices"
 )
 
 type Entry struct {
@@ -111,7 +112,12 @@ func generateEntriesFromCSV(entriesFilePath string) []*Entry {
 	}
 
 	filteredEntries := []*Entry{}
+	numbers := []int{}
 	for _, entry := range entries {
+		if slices.Contains(numbers, entry.Number) {
+			panic(fmt.Sprintf("Number %v is defined twice in entries", entry.Number))
+		}
+		numbers = append(numbers, entry.Number)
 		if strings.TrimSpace(entry.Name) != "" {
 			filteredEntries = append(filteredEntries, entry)
 		}
