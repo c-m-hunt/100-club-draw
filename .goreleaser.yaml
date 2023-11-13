@@ -8,7 +8,7 @@ builds:
       - linux
       - windows
       - darwin
-    binary: devbox
+    binary: hundclub
     ldflags:
       - -s -w -X github.com/c-m-hunt/100-club-draw/cmd.Version={{.Version}} -X github.com/c-m-hunt/100-club-draw/cmd.CommitHash={{.ShortCommit}} -X github.com/c-m-hunt/100-club-draw/cmd.BuildDate={{.Date}}
 archives:
