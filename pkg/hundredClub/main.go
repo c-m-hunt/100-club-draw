@@ -79,12 +79,12 @@ func (h *HundredClub) DisplayEntriesSummary() {
 }
 
 func (h *HundredClub) Draw() DrawResult {
-	rand.Seed(time.Now().UnixNano())
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	drawResults := []PrizeResult{}
 	entries := make([]*Entry, len(h.Entries))
 	copy(entries, h.Entries)
 	for i := 0; i < h.PrizesToDraw; i++ {
-		prizeIndex := rand.Intn(len(entries))
+		prizeIndex := r.Intn(len(entries))
 		drawResults = append(drawResults, PrizeResult{PrizeName: h.PrizeNames[i], Entry: entries[prizeIndex]})
 		entries = append(entries[:prizeIndex], entries[prizeIndex+1:]...)
 	}

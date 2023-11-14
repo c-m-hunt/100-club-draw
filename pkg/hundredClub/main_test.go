@@ -1,9 +1,7 @@
 package hundredClub
 
 import (
-	"math/rand"
 	"testing"
-	"time"
 )
 
 var bigNumber = 100000
@@ -23,7 +21,6 @@ func TestHundredClub_Draw(t *testing.T) {
 
 	h := New("entries_test.csv", 3)
 
-	rand.Seed(time.Now().UnixNano())
 	results := []DrawResult{}
 	for i := 0; i < bigNumber; i++ {
 		results = append(results, h.Draw())
